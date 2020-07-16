@@ -10,9 +10,11 @@ import {
   Animated,
   PanResponder,
   StyleSheet,
-  Easing
+  Easing,
+  Image,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
+import { number } from "prop-types";
 
 type Props = {
   value: number,
@@ -31,14 +33,18 @@ type Props = {
   ballIndicatorColor?: string,
   ballIndicatorWidth?: number,
   ballIndicatorPosition?: number,
-  ballIndicatorTextColor?: string
+  centerIndicatorPosition?: number,
+  ballIndicatorTextColor?: string,
+  centerImage?: string,
+  centerIndicatorText: String,
+  centerTextPosition: number,
 };
 
 type State = {
   value: number,
   sliderHeight: any,
   ballHeight: any,
-  panResponder: any
+  panResponder: any,
 };
 
 export default class VerticalSlider extends Component<Props, State> {
@@ -120,7 +126,7 @@ export default class VerticalSlider extends Component<Props, State> {
     const { height, ballIndicatorWidth } = this.props;
     const sliderHeight = this._getSliderHeight(value);
     let ballPosition = sliderHeight;
-    const ballHeight = (ballIndicatorWidth ? ballIndicatorWidth : 48) / 2;
+    const ballHeight = (ballIndicatorWidth ? ballIndicatorWidth : 48) / 20;
     if (ballPosition + ballHeight > height) {
       ballPosition = height - ballHeight * 2;
     } else if (ballPosition - ballHeight <= 0) {
@@ -193,10 +199,15 @@ export default class VerticalSlider extends Component<Props, State> {
       ballIndicatorColor,
       ballIndicatorWidth,
       ballIndicatorPosition,
-      ballIndicatorTextColor
+      centerTextPosition,
+      ballIndicatorTextColor,
+      showCenterIndicator,
+      centerImage,
+      centerIndicatorPosition,
+      centerIndicatorText,
     } = this.props;
     return (
-      <View style={[{ height, width, borderRadius }]}>
+      <View style={[{ height, width, borderRadius, alignItems: 'center' }]}>
         <View
           style={[
             styles.container,
@@ -235,11 +246,9 @@ export default class VerticalSlider extends Component<Props, State> {
           <Animated.View
             style={[
               styles.ball,
-              styles.shadow,
               {
-                width: ballIndicatorWidth ? ballIndicatorWidth : 48,
-                height: ballIndicatorWidth ? ballIndicatorWidth : 48,
-                borderRadius: ballIndicatorWidth ? ballIndicatorWidth / 2 : 24,
+                // width: 48,
+                // height: 48,
                 bottom: this.state.ballHeight,
                 left: ballIndicatorPosition ? ballIndicatorPosition : -60,
                 backgroundColor: this._fetchBallIndicatorColor()
@@ -256,7 +265,55 @@ export default class VerticalSlider extends Component<Props, State> {
                 }
               ]}
             >
-              {this.state.value}
+              {this.state.value}%
+            </Text>
+          </Animated.View>
+        ) : null}
+        
+        {showCenterIndicator && this.state.value > 40 ? (
+          <Animated.View
+            style={[
+              styles.ball,
+              {
+                width: 60,
+                height: 60,
+                borderRadius: 40,
+                borderWidth: 3,
+                borderColor: maximumTrackTintColor,
+                bottom: this.state.ballHeight,
+                // left: centerIndicatorPosition ? centerIndicatorPosition : 40,
+              }
+            ]}
+          >
+            <Image
+              resizeMode="cover"
+              source={centerImage}
+              style={styles.centerImage}
+            />
+          </Animated.View>
+        ) : null}
+
+        {this.state.value > 15 ? (
+          <Animated.View
+            style={[
+              styles.ball,
+              {
+                width: 60,
+                height: 30,
+                bottom: this.state.ballHeight,
+              }
+            ]}
+          >
+             <Text
+              style={[
+                styles.ballText,
+                {
+                  // left: centerTextPosition ? centerTextPosition : 40,
+                  color: maximumTrackTintColor,
+                }
+              ]}
+            >
+              {centerIndicatorText}
             </Text>
           </Animated.View>
         ) : null}
@@ -277,15 +334,15 @@ const styles = StyleSheet.create({
     elevation: 3
   },
   ball: {
-    position: "absolute",
+    // position: "absolute",
     alignItems: "center",
     justifyContent: "center"
   },
   ballText: {
-    fontWeight: "900"
+    fontWeight: "600"
   },
   container: {
-    overflow: "hidden"
+    overflow: "hidden",
   },
   slider: {
     position: "absolute",
@@ -294,5 +351,10 @@ const styles = StyleSheet.create({
   linearGradient: {
     width: "100%",
     height: "100%"
-  }
+  },
+  centerImage: {
+    width: 40,
+    height: 40,
+  },
 });
+
