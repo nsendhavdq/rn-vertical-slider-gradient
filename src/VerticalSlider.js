@@ -277,6 +277,7 @@ export default class VerticalSlider extends Component<Props, State> {
               {
                 width: 60,
                 height: 60,
+                zIndex: 10,
                 borderRadius: 40,
                 borderWidth: 3,
                 borderColor: maximumTrackTintColor,
@@ -339,7 +340,8 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   ballText: {
-    fontWeight: "600"
+    fontWeight: "600",
+    zIndex: 10,
   },
   container: {
     overflow: "hidden",
@@ -355,6 +357,7 @@ const styles = StyleSheet.create({
   centerImage: {
     width: 40,
     height: 40,
+    zIndex: 10,
   },
 });
 
