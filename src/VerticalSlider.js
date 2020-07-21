@@ -344,7 +344,6 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   container: {
-    overflow: "hidden",
     zIndex: 4,
   },
   slider: {
