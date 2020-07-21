@@ -345,10 +345,12 @@ const styles = StyleSheet.create({
   },
   container: {
     overflow: "hidden",
+    zIndex: 4,
   },
   slider: {
     position: "absolute",
-    bottom: 0
+    bottom: 0,
+    zIndex: 4,
   },
   linearGradient: {
     width: "100%",
