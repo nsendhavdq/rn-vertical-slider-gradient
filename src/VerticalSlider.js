@@ -332,7 +332,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-    elevation: 3
   },
   ball: {
     // position: "absolute",
@@ -341,15 +340,13 @@ const styles = StyleSheet.create({
   },
   ballText: {
     fontWeight: "600",
-    zIndex: 10,
   },
   container: {
-    zIndex: 4,
+    overflow: 'hidden'
   },
   slider: {
     position: "absolute",
     bottom: 0,
-    zIndex: 4,
   },
   linearGradient: {
     width: "100%",
@@ -358,7 +355,6 @@ const styles = StyleSheet.create({
   centerImage: {
     width: 40,
     height: 40,
-    zIndex: 10,
   },
 });
 
