@@ -310,6 +310,8 @@ export default class VerticalSlider extends Component<Props, State> {
                 styles.ballText,
                 {
                   // left: centerTextPosition ? centerTextPosition : 40,
+                   width: 60,
+                  textAlign: 'center',
                   color: maximumTrackTintColor,
                 }
               ]}
